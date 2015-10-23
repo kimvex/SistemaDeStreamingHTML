@@ -1,0 +1,20 @@
+{
+  "name": "sistemadeclases",
+  "version": "0.0.1",
+  "description": "Este sistema sirve para impartir una clase con los alumnos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin de la cruz martinez",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "ip": "^1.0.1",
+    "multer": "^1.0.6",
+    "mysql": "^2.9.0",
+    "socket.io": "^1.3.7",
+    "swig": "^1.4.2"
+  }
+}
