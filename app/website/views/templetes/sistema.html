@@ -16,9 +16,10 @@
 		</nav>
 	</header>
 	<section>
-		<div class="diapositivas" id="diapositivas">
-			
-		</div>
+		<video id="video" controls autoplay class="oculto"></video>
+		<canvas class="oculto" id="miCanvas">
+		</canvas>
+		<img class="diapositivas" id="miImg">
 		<div class="chat">
 			<div class="mensajes" id="respuesta"></div>
 			<input type="text" id="mensaje" class="mensaje" placeholder="Mensaje..." required><a href="#" id="enviar" class="icon-play botonEnviar"></a>
@@ -38,6 +39,7 @@
 			<input type="file" name="img" id="imagen">
 			<input type="submit">
 		</form>
+		<input type="hidden" id="ds" value="">
 	</footer>
 	<script>
 		localStorage.setItem('SS','benjamin');

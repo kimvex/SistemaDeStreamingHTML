@@ -38,6 +38,37 @@ $(document).ready(function(){
 		$('#diapositivas').html(externo);
 	});
 	if(localStorage['SS'] == 'benjamin'){
+		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||   navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+		if(navigator.getUserMedia){
+			navigator.getUserMedia ({video: true},function(data){
+				video.src = window.URL.createObjectURL(data);
+		},function(err) {
+    			console.log("Ocurrió el siguiente error: " + err);
+   		  });
+		}
+
+		var canvas = document.getElementById('miCanvas');
+		var context = canvas.getContext('2d');
+
+		var video = document.getElementById('video');
+
+		function videos(video,context){
+			var ancho = document.body.clientWidth;
+			var alto = document.body.clientHeight;
+			alto = alto * 75 / 100;
+			ancho = ancho * 75 / 100;
+			alto = alto * 30/ 100;
+			ancho = ancho * 30 / 100;
+			console.log(ancho);
+			//console.log(alto);
+			context.drawImage(video,0,0,ancho,alto);
+			socket.emit('stream',canvas.toDataURL('image/webp'));
+		}
+
+		setInterval(function(){
+			videos(video,context);
+		},70);
 
 		function pasarDiapo(evento){
 
@@ -45,9 +76,12 @@ $(document).ready(function(){
 			console.log(evento.which);
 		}
 
-
 		$(document).keydown(pasarDiapo);
 	}
+	socket.on('streamRes',function(data){
+		var img = document.getElementById('miImg');
+		img.src = data;
+	})
 
 			var chmod = 0;
 

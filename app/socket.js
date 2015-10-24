@@ -63,6 +63,11 @@ var SocketIO = function(config){
 		socket.on('diapo',function(data){
 			io.emit('diapositiva',{dato:data.dato})
 		});
+
+		socket.on('stream',function(data){
+			io.emit('streamRes',data);
+		});
+
 	});
 }
 

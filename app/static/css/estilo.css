@@ -62,6 +62,8 @@ section{
 	border: 1px solid;
 	border-color: #e5e6e9 #dfe0e4 #d0d1d5;
 	background: white;
+	position: absolute;
+	left: 0;
 }
 
 .chat{
@@ -99,12 +101,14 @@ section{
 
 .archivos{
 	width: 75%;
-	height: 20%;
+	height: 10%;
 	background: #f6f7f8;
 	border: 1px solid;
 	border-color: #e5e6e9 #dfe0e4 #d0d1d5;
 	word-wrap: break-word;
 	overflow: auto;
+	position: absolute;
+	bottom: 5%;
 }
 
 .envioArchivos{
