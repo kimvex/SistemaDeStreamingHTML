@@ -37,6 +37,7 @@ $(document).ready(function(){
 	$.get('/html',function(externo){
 		$('#diapositivas').html(externo);
 	});
+	var contexto;
 	if(localStorage['SS'] == 'benjamin'){
 		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||   navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
@@ -60,15 +61,15 @@ $(document).ready(function(){
 			ancho = ancho * 75 / 100;
 			alto = alto * 30/ 100;
 			ancho = ancho * 30 / 100;
-			console.log(ancho);
-			//console.log(alto);
 			context.drawImage(video,0,0,ancho,alto);
 			socket.emit('stream',canvas.toDataURL('image/webp'));
 		}
 
-		setInterval(function(){
-			videos(video,context);
-		},70);
+		//setInterval(function(){
+		//	videos(video,context);
+		//},70);
+
+		var pulsado;
 
 		function pasarDiapo(evento){
 
@@ -82,6 +83,60 @@ $(document).ready(function(){
 		var img = document.getElementById('miImg');
 		img.src = data;
 	})
+
+	var crearLienzo = function(){
+		var canvasD = document.getElementById('canvas');
+		contexto = canvasD.getContext('2d');
+		var ancho = document.body.clientWidth;
+		var alto = document.body.clientHeight;
+		alto = alto * 75 / 100;
+		ancho = ancho * 75 / 100;
+		canvasD.setAttribute('width',ancho);
+		canvasD.setAttribute('height',alto);
+		if(localStorage['SS'] == 'benjamin'){
+			document.getElementById('canvas').addEventListener('mousedown',function(e){
+					pulsado = true;
+					socket.emit('draw',[e.pageX - this.offsetLeft, e.pageY - this.offsetTop,false]);
+			});
+
+			document.getElementById('canvas').addEventListener('mousemove',function(e){
+					if(pulsado){
+						socket.emit('draw',[e.pageX - this.offsetLeft, e.pageY - this.offsetTop,true]);
+					}
+			});
+
+			document.getElementById('canvas').addEventListener('mouseup',function(e){
+					pulsado = false;
+			});
+
+			document.getElementById('canvas').addEventListener('mouseleave',function(e){
+					pulsado = false;
+			});
+		}
+	};
+	crearLienzo();
+
+	var dibujar = function(mov){
+		contexto.lineJoin = "round";
+		contexto.lineWidth = 6;
+		contexto.strokeStyle = "white";
+		for(var i = 0;i < mov.movi;i++ ){
+			contexto.beginPath();
+			if(mov.arry[i][2] && i){
+				contexto.moveTo(mov.arry[i-1][0],mov.arry[i-1][1]);
+			}else{
+				contexto.moveTo(mov.arry[i][0],mov.arry[i][1]);
+			}
+			contexto.lineTo(mov.arry[i][0],mov.arry[i][1]);
+			contexto.closePath();
+			contexto.stroke();
+		}
+	}
+
+	socket.on('update',function(data){
+		dibujar(data);
+	});
+
 
 			var chmod = 0;
 

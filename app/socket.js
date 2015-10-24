@@ -68,6 +68,12 @@ var SocketIO = function(config){
 			io.emit('streamRes',data);
 		});
 
+		var array = [];
+		socket.on('draw',function(_movimientos){
+			array.push(_movimientos);
+			io.emit('update',{movi:array.length,arry:array});
+		});
+
 	});
 }
 

@@ -144,3 +144,8 @@ footer span{
 .oculto{
 	display: none;
 }
+#canvas{
+	background: #0D623B;
+	position: absolute;
+	left: 0;
+}
