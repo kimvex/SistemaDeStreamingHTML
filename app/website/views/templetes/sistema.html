@@ -12,12 +12,18 @@
 <body>
 	<header class="cabeza">
 		<nav class="menu">
-			Sistema de streaming escolar
+			<ul class="listaMenu">
+				<li class="menuItem" id="streaming">Streaming</li>
+				<li class="menuItem col icon-iniciarStream" id="emitirS">Emitir</li>
+				<li class="menuItem col icon-stop" id="detenerS">Detener</li>
+				<li class="menuItem" id="pizarra">Pizarra</li>
+				<li class="menuItem" id="archivosV">Archivos</li>
+			</ul>
 		</nav>
 	</header>
 	<section>
 		<video id="video" controls autoplay class="oculto"></video>
-		<canvas class="oculto" id="miCanvas">
+		<canvas class="diapositivas oculto" id="miCanvas">
 		</canvas>
 		<img class="diapositivas oculto" id="miImg">
 		<canvas class="" id="canvas"></canvas>

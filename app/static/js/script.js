@@ -38,36 +38,58 @@ $(document).ready(function(){
 		$('#diapositivas').html(externo);
 	});
 	var contexto;
+	var bool = true;
 	if(localStorage['SS'] == 'benjamin'){
-		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||   navigator.mozGetUserMedia || navigator.msGetUserMedia);
-
-		if(navigator.getUserMedia){
-			navigator.getUserMedia ({video: true},function(data){
-				video.src = window.URL.createObjectURL(data);
-		},function(err) {
-    			console.log("Ocurrió el siguiente error: " + err);
-   		  });
-		}
-
 		var canvas = document.getElementById('miCanvas');
 		var context = canvas.getContext('2d');
 
 		var video = document.getElementById('video');
+		function streamG(){		
+			navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||   navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
-		function videos(video,context){
-			var ancho = document.body.clientWidth;
-			var alto = document.body.clientHeight;
-			alto = alto * 75 / 100;
-			ancho = ancho * 75 / 100;
-			alto = alto * 30/ 100;
-			ancho = ancho * 30 / 100;
-			context.drawImage(video,0,0,ancho,alto);
-			socket.emit('stream',canvas.toDataURL('image/webp'));
+			if(navigator.getUserMedia){
+				navigator.getUserMedia ({video: bool},function(data){
+					video.src = window.URL.createObjectURL(data);
+			},function(err) {
+	    			console.log("Ocurrió el siguiente error: " + err);
+	   		  });
+			}
+
+
+			function videos(video,context){
+				var ancho = document.body.clientWidth;
+				var alto = document.body.clientHeight;
+				alto = alto * 75 / 100;
+				ancho = ancho * 75 / 100;
+				alto = alto * 30/ 100;
+				ancho = ancho * 30 / 100;
+				context.drawImage(video,0,0,ancho,alto);
+				socket.emit('stream',canvas.toDataURL('image/webp'));
+			}
+
+			function emitirStream(){
+				$('#emitirS').addClass('emitiendo');
+				$('#emitirS').addClass('icon-pausa');
+				$('#detenerS').removeClass('detenido');
+				var emiti = setInterval(function(){
+					videos(video,context);
+				},70);				
+				function detener(){
+					clearInterval(emiti);
+					$('#emitirS').removeClass('emitiendo');
+					$('#emitirS').removeClass('icon-iniciarStream');
+					$('#emitirS').addClass('icon-play');
+					$('#detenerS').addClass('detenido');
+				}
+				document.getElementById('detenerS').addEventListener('click',detener);
+			}
+			$('#miImg').removeClass('oculto');
+			$('#miCanvas').addClass('oculto');
+			$('#canvas').addClass('oculto');
+			$('#emitirS').removeClass('col');
+			$('#detenerS').removeClass('col');
+			document.getElementById('emitirS').addEventListener('click',emitirStream);
 		}
-
-		//setInterval(function(){
-		//	videos(video,context);
-		//},70);
 
 		var pulsado;
 
@@ -78,6 +100,15 @@ $(document).ready(function(){
 		}
 
 		$(document).keydown(pasarDiapo);
+
+		document.getElementById('streaming').addEventListener('click',streamG);
+
+		function pizarr(){
+			bool = false;
+			streamG();
+			streamG.detener();
+		}
+		document.getElementById('pizarra').addEventListener('click',pizarr);
 	}
 	socket.on('streamRes',function(data){
 		var img = document.getElementById('miImg');
@@ -118,7 +149,7 @@ $(document).ready(function(){
 
 	var dibujar = function(mov){
 		contexto.lineJoin = "round";
-		contexto.lineWidth = 6;
+		contexto.lineWidth = 12;
 		contexto.strokeStyle = "white";
 		for(var i = 0;i < mov.movi;i++ ){
 			contexto.beginPath();

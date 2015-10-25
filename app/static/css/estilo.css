@@ -26,6 +26,15 @@
 .icon-play:before {
 	content: "\e900";
 }
+.icon-pausa:before {
+	content: "\e901";
+}
+.icon-iniciarStream:before {
+	content: "\e902";
+}
+.icon-stop:before {
+	content: "\e903";
+}
 
 html,body{
 	font-size: 16px;
@@ -148,4 +157,33 @@ footer span{
 	background: #0D623B;
 	position: absolute;
 	left: 0;
+}
+
+.listaMenu{
+	list-style: none;
+	margin: 0;
+}
+.menuItem{
+	display: inline-block;
+	padding: .5em 1em;
+	cursor: pointer;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+}
+.menuItem:hover{
+	-webkit-transition: .5s;
+	-moz-trasition: .5s;
+	background: #CCC;
+}
+.col{
+	background: #FFCCCC;
+}
+.col:hover{
+	background: #FFCCCC;
+}
+.emitiendo{
+	background: #00FF00;
+}
+.detenido{
+	background: #FF0000;
 }
