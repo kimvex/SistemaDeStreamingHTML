@@ -71,7 +71,16 @@ var SocketIO = function(config){
 		var array = [];
 		socket.on('draw',function(_movimientos){
 			array.push(_movimientos);
+			if( 70 < array.length){
+				//console.log(array.length);
+				//console.log(array);
+				array = []
+			}
 			io.emit('update',{movi:array.length,arry:array});
+		});
+
+		socket.on('cambio',function(data){
+			io.emit('cambioC',{data:data});
 		});
 
 	});

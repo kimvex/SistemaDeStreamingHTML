@@ -42,19 +42,24 @@ $(document).ready(function(){
 	if(localStorage['SS'] == 'benjamin'){
 		var canvas = document.getElementById('miCanvas');
 		var context = canvas.getContext('2d');
+		var emiti;
+		var videoStream = null;
 
 		var video = document.getElementById('video');
-		function streamG(){		
+		function activarCamara (e){
+
 			navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||   navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
 			if(navigator.getUserMedia){
 				navigator.getUserMedia ({video: bool},function(data){
+					videoStream = data;
 					video.src = window.URL.createObjectURL(data);
 			},function(err) {
 	    			console.log("Ocurrió el siguiente error: " + err);
 	   		  });
 			}
-
+		}
+		var streamG = function(){		
 
 			function videos(video,context){
 				var ancho = document.body.clientWidth;
@@ -67,18 +72,22 @@ $(document).ready(function(){
 				socket.emit('stream',canvas.toDataURL('image/webp'));
 			}
 
-			function emitirStream(){
+			var emitirStream = function(){
 				$('#emitirS').addClass('emitiendo');
+				$('#emitirS').removeClass('icon-iniciarStream');
 				$('#emitirS').addClass('icon-pausa');
 				$('#detenerS').removeClass('detenido');
-				var emiti = setInterval(function(){
-					videos(video,context);
-				},70);				
-				function detener(){
+				if(emiti == '' || emiti == undefined){
+					emiti = setInterval(function(){
+						videos(video,context);
+					},70);				
+				}
+				var detener = function(){
 					clearInterval(emiti);
+					emiti = '';
 					$('#emitirS').removeClass('emitiendo');
-					$('#emitirS').removeClass('icon-iniciarStream');
-					$('#emitirS').addClass('icon-play');
+					$('#emitirS').removeClass('icon-pausa');
+					$('#emitirS').addClass('icon-iniciarStream');
 					$('#detenerS').addClass('detenido');
 				}
 				document.getElementById('detenerS').addEventListener('click',detener);
@@ -88,7 +97,10 @@ $(document).ready(function(){
 			$('#canvas').addClass('oculto');
 			$('#emitirS').removeClass('col');
 			$('#detenerS').removeClass('col');
+			$('#acceder').removeClass('col');
+			socket.emit('cambio',{dato:1});
 			document.getElementById('emitirS').addEventListener('click',emitirStream);
+			document.getElementById('acceder').addEventListener('click',activarCamara);
 		}
 
 		var pulsado;
@@ -104,9 +116,17 @@ $(document).ready(function(){
 		document.getElementById('streaming').addEventListener('click',streamG);
 
 		function pizarr(){
-			bool = false;
-			streamG();
-			streamG.detener();
+			clearInterval(emiti);
+			emiti = '';
+			videoStream.stop();
+			$('#emitirS').addClass('col');
+			$('#detenerS').addClass('col');
+			$('#acceder').addClass('col');
+			$('#emitirS').removeClass('emitiendo');
+			$('#emitirS').removeClass('icon-pausa');
+			$('#detenerS').removeClass('detenido');
+			$('#emitirS').addClass('icon-iniciarStream');
+			socket.emit('cambio',{dato:2});
 		}
 		document.getElementById('pizarra').addEventListener('click',pizarr);
 	}
@@ -146,28 +166,36 @@ $(document).ready(function(){
 		}
 	};
 	crearLienzo();
-
-	var dibujar = function(mov){
+	socket.on('update',function(data){
 		contexto.lineJoin = "round";
 		contexto.lineWidth = 12;
 		contexto.strokeStyle = "white";
-		for(var i = 0;i < mov.movi;i++ ){
+		for(var i = 0;i < data.movi;i++ ){
 			contexto.beginPath();
-			if(mov.arry[i][2] && i){
-				contexto.moveTo(mov.arry[i-1][0],mov.arry[i-1][1]);
+			if(data.arry[i][2] && i){
+				contexto.moveTo(data.arry[i-1][0],data.arry[i-1][1]);
 			}else{
-				contexto.moveTo(mov.arry[i][0],mov.arry[i][1]);
+				contexto.moveTo(data.arry[i][0],data.arry[i][1]);
 			}
-			contexto.lineTo(mov.arry[i][0],mov.arry[i][1]);
+			contexto.lineTo(data.arry[i][0],data.arry[i][1]);
 			contexto.closePath();
 			contexto.stroke();
 		}
-	}
-
-	socket.on('update',function(data){
-		dibujar(data);
 	});
 
+	socket.on('cambioC',function(data){
+		if(data.data.dato == 1){
+			$('#miImg').removeClass('oculto');
+			$('#canvas').addClass('oculto');
+		}
+		if(data.data.dato == 2){
+			$('#canvas').removeClass('oculto');
+			$('#miImg').addClass('oculto');
+		}
+		if(data.data.dato == 3){
+
+		}
+	});
 
 			var chmod = 0;
 
