@@ -1,4 +1,64 @@
 @font-face {
+    font-family: 'KnewaveRegular';
+    src: url('../fonts/knewave-webfont.eot');
+    src: url('../fonts/knewave-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/knewave-webfont.woff') format('woff'),
+         url('../fonts/knewave-webfont.ttf') format('truetype'),
+         url('../fonts/knewave-webfont.svg#KnewaveRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'KnewaveOutlineRegular';
+    src: url('../fonts/knewave-outline-webfont.eot');
+    src: url('../fonts/knewave-outline-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/knewave-outline-webfont.woff') format('woff'),
+         url('../fonts/knewave-outline-webfont.ttf') format('truetype'),
+         url('../fonts/knewave-outline-webfont.svg#KnewaveOutlineRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Junction';
+    src: url('../fonts/junction-bold.eot');
+    src: url('../fonts/junction-bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/junction-bold.woff') format('woff'),
+         url('../fonts/junction-bold.ttf') format('truetype'),
+         url('../fonts/junction-bold.svg#junctionbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Junction';
+    src: url('../fonts/junction-light.eot');
+    src: url('../fonts/junction-light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/junction-light.woff') format('woff'),
+         url('../fonts/junction-light.ttf') format('truetype'),
+         url('../fonts/junction-light.svg#junctionlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Junction';
+    src: url('../fonts/junction-regular.eot');
+    src: url('../fonts/junction-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/junction-regular.woff') format('woff'),
+         url('../fonts/junction-regular.ttf') format('truetype'),
+         url('../fonts/junction-regular.svg#junctionregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
 	font-family: 'icomoon';
 	src:url('../fonts/icomoon.eot?gfffug');
 	src:url('../fonts/icomoon.eot?gfffug#iefix') format('embedded-opentype'),
@@ -186,4 +246,98 @@ footer span{
 }
 .detenido{
 	background: #FF0000;
+}
+
+/*******Correo**************/
+.headerCorreo{
+	width: 100%;
+	background: white;
+	border-bottom: 1px solid #DEDEDE;
+	text-align: center;
+	font-family: 'KnewaveRegular';
+	padding: .95% 0%;
+	font-size: 2.2em;
+}
+
+.sectionCorreo{
+	width: 100%;
+	height: 84.9%;
+	background: url('../img/Email-Marketing-Image-21.jpg');
+	background-size: cover;
+	border:0px;
+	/*filter: blur(1px); 
+	-webkit-filter: blur(1px); 
+	-moz-filter: blur(1px);
+	-o-filter: blur(1px);
+	-ms-filter: blur(1px);*/
+	position: relative;
+}
+
+.loginCorreo{
+	width: 70%;
+	height: 70%;
+	top: 15%;
+	left: 15%;
+	background: rgba(255,0,255,.5);
+	position: absolute;
+	text-align: center;
+}
+
+.formCorreo{
+	position: absolute;
+	width: 50%;
+	left: 25%;
+	top: 25%;
+}
+
+.itemCorreo{
+	display: block;
+	padding: .8em;
+	border: 0px;
+	width: 100%;
+	text-align: right;
+}
+
+.itemCorreo:focus{
+	outline: 0;
+}
+.itemCorreo:first-child{
+	border-bottom: 1px solid #ccc;
+
+}
+
+.itemCorreoEntrar{
+	margin-top: .5em;
+	width: 100%;
+	border:0px;
+	padding:1em;
+	margin-left: .9em;
+	background: #F9BE36;/*249 190 54 1*/
+	border-bottom: #EAA506 .5em solid;
+	color: white;
+	font-size: 1.2em;
+	font-family: 'Junction';
+	/*box-shadow: 0px 10px 0px;*/
+	/*-webkit-transition: .5s; 
+	-moz-transition: .5s;
+	-o-transition: .5s;
+	-ms-transition: .5s;*/
+}
+
+.itemCorreoEntrar:active{
+	/*box-shadow: 0px 0px 0px;*/
+	background: #EAA506;
+	border-bottom: 0px;
+	border-top: .5em solid #F9BE36;
+}
+
+.footerCorreo{
+	width: 100%;
+	background: #000;
+	padding: .35% 0;
+	color: white;
+	position: relative;
+}
+.footerCorreo span{
+	display: block;
 }

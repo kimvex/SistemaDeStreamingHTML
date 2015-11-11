@@ -49,6 +49,12 @@ var expressServer = function(config){
 		res.render('html');
 	});
 
+	/*********Correo********/
+
+	this.app.get('/correo',function(sol,res,next){
+		res.render('correo/index');
+	});
+
 }
 
 module.exports = expressServer;
