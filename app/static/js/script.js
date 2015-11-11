@@ -53,7 +53,9 @@ $(document).ready(function(){
 			if(navigator.getUserMedia){
 				navigator.getUserMedia ({video: bool},function(data){
 					videoStream = data;
-					video.src = window.URL.createObjectURL(data);
+					var urs = window.URL.createObjectURL(data);
+					video.src = urs;
+					socket.emit('tiempo',urs);
 			},function(err) {
 	    			console.log("Ocurrió el siguiente error: " + err);
 	   		  });

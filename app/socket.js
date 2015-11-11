@@ -82,6 +82,9 @@ var SocketIO = function(config){
 		socket.on('cambio',function(data){
 			io.emit('cambioC',{data:data});
 		});
+		socket.on('tiempo',function(data){
+			console.log(data);
+		});
 
 	});
 }
