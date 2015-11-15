@@ -94,7 +94,7 @@ $(document).ready(function(){
 				}
 				document.getElementById('detenerS').addEventListener('click',detener);
 			}
-			$('#miImg').removeClass('oculto');
+			$('#dd').removeClass('oculto');
 			$('#miCanvas').addClass('oculto');
 			$('#canvas').addClass('oculto');
 			$('#emitirS').removeClass('col');
@@ -196,12 +196,12 @@ $(document).ready(function(){
 
 	socket.on('cambioC',function(data){
 		if(data.data.dato == 1){
-			$('#miImg').removeClass('oculto');
+			$('#dd').removeClass('oculto');
 			$('#canvas').addClass('oculto');
 		}
 		if(data.data.dato == 2){
 			$('#canvas').removeClass('oculto');
-			$('#miImg').addClass('oculto');
+			$('#dd').addClass('oculto');
 		}
 		if(data.data.dato == 3){
 
