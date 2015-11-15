@@ -133,9 +133,18 @@ $(document).ready(function(){
 		document.getElementById('pizarra').addEventListener('click',pizarr);
 	}
 	socket.on('streamRes',function(data){
-		var img = document.getElementById('miImg');
-		img.src = data;
-	})
+		var can = document.getElementById('dd');
+		var conte = can.getContext('2d');
+		var ancho = document.body.clientWidth;
+		var alto = document.body.clientHeight;
+		alto = alto * 75 / 100;
+		ancho = ancho * 75 / 100;
+		alto = alto * 30/ 100;
+		ancho = ancho * 30 / 100;
+		var image_url = new Image();
+		image_url.src = data;
+		conte.drawImage(image_url,0,0,ancho,alto);
+	});
 
 	var crearLienzo = function(){
 		var canvasD = document.getElementById('canvas');
