@@ -51,7 +51,7 @@ $(document).ready(function(){
 			navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||   navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
 			if(navigator.getUserMedia){
-				navigator.getUserMedia ({video: bool},function(data){
+				navigator.getUserMedia ({video: mandatory: {chromeMediaSource:'screen'},function(data){
 					videoStream = data;
 					var urs = window.URL.createObjectURL(data);
 					video.src = urs;
